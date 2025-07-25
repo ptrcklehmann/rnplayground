@@ -27,13 +27,13 @@ export const AnimatedBottomTabBar: React.FC<BottomTabBarProps> = ({
   state,
   navigation,
 }) => {
-  const { width: screenWidth } = useWindowDimensions();
-  const { bottom } = useSafeAreaInsets();
-  const { routeNames } = state;
-  const selectedTab = state.index;
-  const tabCount = routeNames.length;
-  const tabWidth = screenWidth / tabCount;
-  const { styles } = useStyles();
+    const { styles } = useStyles();
+    const { width: screenWidth } = useWindowDimensions();
+    const { bottom } = useSafeAreaInsets();
+    const { routeNames } = state;
+    const selectedTab = state.index;
+    const tabCount = routeNames.length;
+    const tabWidth = screenWidth / tabCount;
 
   // Helper function to get display name for route
   const getRouteDisplayName = (routeName: string): string => {

@@ -1,6 +1,5 @@
-import React from 'react';
+import { useWindowDimensions } from 'react-native';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
 import createStyles from '../../utils/createStyles';
 
 interface TabBarIndicatorProps {
@@ -9,8 +8,6 @@ interface TabBarIndicatorProps {
   color?: string;
   animatedStyle?: AnimatedStyle;
 }
-
-const { width: screenWidth } = Dimensions.get('window');
 
 const useStyles = createStyles({
   tabItem: ({}, width: number, height: number = 4, color: string) => ({
@@ -28,8 +25,9 @@ export const TabBarIndicator: React.FC<TabBarIndicatorProps> = ({
   color = '#04d226',
   animatedStyle,
 }) => {
-  const tabWidth = screenWidth / tabCount;
   const { styles } = useStyles();
+  const { width: screenWidth } = useWindowDimensions();
+  const tabWidth = screenWidth / tabCount;
 
   return (
     <Animated.View

@@ -2,16 +2,15 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useWindowDimensions, View } from 'react-native';
 import { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { palette, tabBarItemActiveColor } from '../../styles';
 import createStyles from '../../utils/createStyles';
 import { TabBarIndicator } from './TabBarIndicator';
 import { TabBarItem } from './TabBarItem';
-import { BlurView } from '@react-native-community/blur';
 
 const useStyles = createStyles({
   container: {
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#E5E5EA',
+    borderTopWidth: 2,
+    borderTopColor: palette.grayscale02,
     paddingTop: 0,
     shadowColor: '#000',
     shadowOpacity: 0.125,
@@ -23,17 +22,17 @@ const useStyles = createStyles({
   },
 });
 
-export const AnimatedBottomTabBar: React.FC<BottomTabBarProps> = ({
+export const AnimatedBottomTabBar = ({
   state,
   navigation,
-}) => {
-    const { styles } = useStyles();
-    const { width: screenWidth } = useWindowDimensions();
-    const { bottom } = useSafeAreaInsets();
-    const { routeNames } = state;
-    const selectedTab = state.index;
-    const tabCount = routeNames.length;
-    const tabWidth = screenWidth / tabCount;
+}: BottomTabBarProps) => {
+  const { styles } = useStyles();
+  const { width: screenWidth } = useWindowDimensions();
+  const { bottom } = useSafeAreaInsets();
+  const { routeNames } = state;
+  const selectedTab = state.index;
+  const tabCount = routeNames.length;
+  const tabWidth = screenWidth / tabCount;
 
   // Helper function to get display name for route
   const getRouteDisplayName = (routeName: string): string => {
@@ -55,17 +54,12 @@ export const AnimatedBottomTabBar: React.FC<BottomTabBarProps> = ({
   }));
 
   return (
-    <BlurView
-      style={[styles.container, { paddingBottom: bottom }]}
-      blurType="light"
-      blurAmount={10}
-      reducedTransparencyFallbackColor="white"
-    >
+    <View style={[styles.container, { paddingBottom: bottom }]}>
       <TabBarIndicator
         tabCount={tabCount}
         animatedStyle={animatedStyle}
         height={2}
-        color="#04d226"
+        color={tabBarItemActiveColor}
       />
       <View style={styles.tabContainer}>
         {routeNames.map((routeName, index) => {
@@ -93,6 +87,6 @@ export const AnimatedBottomTabBar: React.FC<BottomTabBarProps> = ({
           );
         })}
       </View>
-    </BlurView>
+    </View>
   );
 };

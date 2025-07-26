@@ -1,20 +1,28 @@
-import { Text, View } from "react-native";
-import createStyles from "../../utils/createStyles";
-
+import { ScrollView, Text } from 'react-native';
+import { SaveScreen } from '../../components/common/SaveScreen';
+import { palette, viewportGap } from '../../styles';
+import createStyles from '../../utils/createStyles';
 
 const useStyles = createStyles({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    paddingHorizontal: viewportGap,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: palette.grayscaleBlack,
+  },
 });
 
 export const MenuScreen = () => {
   const { styles } = useStyles();
   return (
-    <View style={styles.container}>
-      <Text>Welcome to the Menu Screen!</Text>
-    </View>
+    <SaveScreen>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Menu Screen</Text>
+        {/* Add more menu items here */}
+      </ScrollView>
+    </SaveScreen>
   );
-}
+};

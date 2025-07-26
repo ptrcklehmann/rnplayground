@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity } from 'react-native';
+import { tabBarItemActiveColor, tabBarItemInactiveColor } from '../../styles';
 import createStyles from '../../utils/createStyles';
 
 const useStyles = createStyles({
@@ -11,31 +12,27 @@ const useStyles = createStyles({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#8E8E93',
+    color: tabBarItemInactiveColor,
   },
   selectedLabel: {
-    color: '#04d226',
+    color: tabBarItemActiveColor,
     fontWeight: '600',
   },
 });
 
-interface TabBarItemProps {
+type TabBarItemProps = {
   title: string;
   isSelected: boolean;
   onPress: () => void;
-}
+};
 
-export const TabBarItem: React.FC<TabBarItemProps> = ({
-  title,
-  isSelected,
-  onPress,
-}) => {
+export const TabBarItem = ({ title, isSelected, onPress }: TabBarItemProps) => {
   const { styles } = useStyles();
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
     >
       <Text style={[styles.label, isSelected && styles.selectedLabel]}>
         {title}

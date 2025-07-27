@@ -1,7 +1,8 @@
+import React, { memo, useMemo } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
-import createStyles from '../../utils/createStyles';
 import { tabBarItemActiveColor } from '../../styles';
+import createStyles from '../../utils/createStyles';
 
 const useStyles = createStyles({
   tabItem: ({}, width: number, height: number = 2, color: string) => ({
@@ -20,19 +21,26 @@ type TabBarIndicatorProps = {
   animatedStyle?: AnimatedStyle;
 };
 
-export const TabBarIndicator = ({
-  tabCount,
-  height,
-  color = tabBarItemActiveColor,
-  animatedStyle,
-}: TabBarIndicatorProps) => {
-  const { styles } = useStyles();
-  const { width: screenWidth } = useWindowDimensions();
-  const tabWidth = screenWidth / tabCount;
+export const TabBarIndicator = memo(
+  ({
+    tabCount,
+    height = 2,
+    color = tabBarItemActiveColor,
+    animatedStyle,
+  }: TabBarIndicatorProps) => {
+    const { styles } = useStyles();
+    const { width: screenWidth } = useWindowDimensions();
 
-  return (
-    <Animated.View
-      style={[styles.tabItem(tabWidth, height, color), animatedStyle]}
-    />
-  );
-};
+    // Memoize the tab width calculation
+    const tabWidth = useMemo(
+      () => screenWidth / tabCount,
+      [screenWidth, tabCount],
+    );
+
+    return (
+      <Animated.View
+        style={[styles.tabItem(tabWidth, height, color), animatedStyle]}
+      />
+    );
+  },
+);

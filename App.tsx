@@ -8,6 +8,8 @@ import { HomeScreen } from './src/features/home/HomeScreen';
 import { MenuScreen } from './src/features/menu/MenuScreen';
 import { AnimatedBottomTabBar } from './src/components/TabBar';
 import { TabBarBackground } from './src/components/TabBar/TabBarBackground';
+import { MenuIcon } from './src/components/icons';
+import { PlaygroundIcon } from './src/components/icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +31,20 @@ const TabNavigator = () => {
         tabBarBackground: renderTabBarBackground,
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Menu" component={MenuScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: PlaygroundIcon,
+        }}
+      />
+      <Tab.Screen
+        name="Menu"
+        component={MenuScreen}
+        options={{
+          tabBarIcon: MenuIcon,
+        }}
+      />
     </Tab.Navigator>
   );
 };

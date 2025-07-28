@@ -7,6 +7,7 @@ import { AnimatedBottomTabBar, TabBarBackground } from '../components/TabBar';
 import { HomeScreen } from '../features/home/HomeScreen';
 import { MenuScreen } from '../features/menu/MenuScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import BootSplash from 'react-native-bootsplash';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,11 @@ const TabNavigator = () => {
 
 export const Navigation = () => {
     return (
-      <NavigationContainer>
+      <NavigationContainer
+        onReady={() => {
+          BootSplash.hide({ fade: true });
+        }}
+      >
         <TabNavigator />
       </NavigationContainer>
     );

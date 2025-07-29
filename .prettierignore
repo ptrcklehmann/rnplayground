@@ -1,0 +1,9 @@
+@types
+ios
+android
+package.json
+package-lock.json
+generated
+app.json
+vendor
+README.md
